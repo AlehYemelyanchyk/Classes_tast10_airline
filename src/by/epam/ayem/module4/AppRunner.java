@@ -12,7 +12,7 @@ package by.epam.ayem.module4;
 import java.time.DayOfWeek;
 import java.util.Scanner;
 
-public class AirlineMain {
+public class AppRunner {
 
     public static void main(String[] args) {
         Airport airport1 = new Airport("Heathrow");
