@@ -1,4 +1,4 @@
-package by.epam.ayem.module4;
+package by.epam.ayem.module4.service;
 
 /*10. Создать класс Airline, спецификация которого приведена ниже. Определить конструкторы, set- и get- методы и
 метод toString(). Создать второй класс, агрегирующий массив типа Airline, с подходящими конструкторами и методами.
@@ -9,26 +9,19 @@ package by.epam.ayem.module4;
         b) список рейсов для заданного дня недели;
         с) список рейсов для заданного дня недели, время вылета для которых больше заданного.*/
 
-import java.util.ArrayList;
-import java.util.List;
+import by.epam.ayem.module4.model.Airline;
+import by.epam.ayem.module4.model.Airport;
+import by.epam.ayem.module4.model.DaysOfWeek;
 
-public class Airport {
+public class AirlineService {
 
-    private String name;
-    private List<Airline> airlines;
-
-    public Airport(String name) {
-        this.name = name;
-        this.airlines = new ArrayList<>();
+    public void addFlights(Airport airport, String destination, int flightNumber, String aircraftType,
+                           String departureTime, DaysOfWeek dayOfWeek) {
+        airport.getAirlines().add(new Airline(destination, flightNumber, aircraftType, departureTime, dayOfWeek));
     }
 
-    public void addFlights(String destination, int flightNumber, String aircraftType, String departureTime, DaysOfWeek dayOfWeek) {
-        airlines.add(new Airline(destination, flightNumber, aircraftType, departureTime, dayOfWeek));
-    }
-
-    public void showFlightsByDestination(String destination) {
-
-        for (Airline airline : airlines) {
+    public void showFlightsByDestination(Airport airport, String destination) {
+        for (Airline airline : airport.getAirlines()) {
             if (airline.getDestination().equalsIgnoreCase(destination)) {
                 System.out.println(airline.toString());
                 return;
@@ -48,11 +41,11 @@ public class Airport {
         return false;
     }
 
-    public void showFlightsByDayOfWeek(DaysOfWeek dayOfWeek) {
+    public void showFlightsByDayOfWeek(Airport airport, DaysOfWeek dayOfWeek) {
 
         boolean found = false;
 
-        for (Airline airline : airlines) {
+        for (Airline airline : airport.getAirlines()) {
             if (airline.getDayOfWeek().toString().equals(dayOfWeek.toString())) {
                 System.out.println(airline.toString());
                 found = true;
@@ -63,11 +56,11 @@ public class Airport {
         }
     }
 
-    public void showFlightsByDayOfWeek(DaysOfWeek dayOfWeek, int hour, int min) {
+    public void showFlightsByDayOfWeekAndTime(Airport airport, DaysOfWeek dayOfWeek, int hour, int min) {
 
         boolean found = false;
 
-        for (Airline airline : airlines) {
+        for (Airline airline : airport.getAirlines()) {
             if (airline.getDayOfWeek().toString().equalsIgnoreCase(dayOfWeek.toString())) {
                 String strTime = airline.getDepartureTime();
                 String[] strTimeArray = strTime.split(":");

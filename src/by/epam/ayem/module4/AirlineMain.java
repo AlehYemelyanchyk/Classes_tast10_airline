@@ -9,19 +9,36 @@ package by.epam.ayem.module4;
         b) список рейсов для заданного дня недели;
         с) список рейсов для заданного дня недели, время вылета для которых больше заданного.*/
 
+import by.epam.ayem.module4.model.Airport;
+import by.epam.ayem.module4.model.DaysOfWeek;
+import by.epam.ayem.module4.service.AirlineService;
+
 import java.time.DayOfWeek;
 import java.util.Scanner;
 
-public class AppRunner {
+public class AirlineMain {
 
     public static void main(String[] args) {
-        Airport airport1 = new Airport("Heathrow");
-        airport1.addFlights("Moscow", 45845, "Airbus A-380", "8:30", DaysOfWeek.MONDAY);
-        airport1.addFlights("Minsk", 35486, "Airbus A-1000", "10:00", DaysOfWeek.MONDAY);
-        airport1.addFlights("Moscow", 78545, "Boeing 747", "8:50", DaysOfWeek.WEDNESDAY);
-        airport1.addFlights("Warsaw", 78545, "Boeing 747", "10:30", DaysOfWeek.FRIDAY);
-        airport1.addFlights("Minsk", 54865, "Airbus A-380", "8:30", DaysOfWeek.FRIDAY);
-        airport1.addFlights("Moscow", 75845, "Airbus A-380", "18:30", DaysOfWeek.SUNDAY);
+        Airport heathrow = new Airport("Heathrow");
+        AirlineService airlineService = new AirlineService();
+
+        airlineService.addFlights(heathrow, "Moscow", 45845,
+                "Airbus A-380", "8:30", DaysOfWeek.MONDAY);
+
+        airlineService.addFlights(heathrow, "Minsk", 35486,
+                "Airbus A-1000", "10:00", DaysOfWeek.MONDAY);
+
+        airlineService.addFlights(heathrow, "Moscow", 78545,
+                "Boeing 747", "8:50", DaysOfWeek.WEDNESDAY);
+
+        airlineService.addFlights(heathrow, "Warsaw", 78545,
+                "Boeing 747", "10:30", DaysOfWeek.FRIDAY);
+
+        airlineService.addFlights(heathrow, "Minsk", 54865,
+                "Airbus A-380", "8:30", DaysOfWeek.FRIDAY);
+
+        airlineService.addFlights(heathrow, "Moscow", 75845,
+                "Airbus A-380", "18:30", DaysOfWeek.SUNDAY);
 
         boolean quit = false;
         int choice;
@@ -42,22 +59,22 @@ public class AppRunner {
                 case 1:
                     System.out.println("Enter a destination: ");
                     String destination = sc.nextLine();
-                    airport1.showFlightsByDestination(destination);
+                    airlineService.showFlightsByDestination(heathrow, destination);
                     break;
                 case 2:
                     System.out.println("Enter a day of the week: ");
                     String day = sc.nextLine().toUpperCase();
-                    if (airport1.isDayOfWeek(day)) {
+                    if (airlineService.isDayOfWeek(day)) {
                         DayOfWeek.valueOf(day);
                     } else {
                         break;
                     }
-                    airport1.showFlightsByDayOfWeek(DaysOfWeek.valueOf(day));
+                    airlineService.showFlightsByDayOfWeek(heathrow, DaysOfWeek.valueOf(day));
                     break;
                 case 3:
                     System.out.println("Enter a day of the week: ");
                     String day2 = sc.nextLine().toUpperCase();
-                    if (airport1.isDayOfWeek(day2)) {
+                    if (airlineService.isDayOfWeek(day2)) {
                         DayOfWeek.valueOf(day2);
                     } else {
                         break;
@@ -68,7 +85,7 @@ public class AppRunner {
                     System.out.println("Enter minutes:");
                     int min = sc.nextInt();
                     sc.nextLine();
-                    airport1.showFlightsByDayOfWeek(DaysOfWeek.valueOf(day2), hour, min);
+                    airlineService.showFlightsByDayOfWeekAndTime(heathrow, DaysOfWeek.valueOf(day2), hour, min);
                     break;
                 case 0:
                     quit = true;

@@ -1,4 +1,4 @@
-package by.epam.ayem.module4;
+package by.epam.ayem.module4.model;
 
 /*10. Создать класс Airline, спецификация которого приведена ниже. Определить конструкторы, set- и get- методы и
 метод toString(). Создать второй класс, агрегирующий массив типа Airline, с подходящими конструкторами и методами.
@@ -23,12 +23,6 @@ public class Airline {
         this.aircraftType = aircraftType;
         this.departureTime = departureTime;
         this.dayOfWeek = dayOfWeek;
-    }
-
-    @Override
-    public String toString() {
-        return "Airline: London - " + destination + ". Flight number " + flightNumber + ", " + aircraftType
-                + ". Departure time: " + departureTime + ", " + dayOfWeek + ".";
     }
 
     public String getDestination() {
@@ -69,6 +63,12 @@ public class Airline {
 
     public void setDayOfWeek(DaysOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
+    }
+
+    @Override
+    public String toString() {
+        return "Airline: London - " + destination + ". Flight number " + flightNumber + ", " + aircraftType
+                + ". Departure time: " + departureTime + ", " + dayOfWeek + ".";
     }
 }
 
